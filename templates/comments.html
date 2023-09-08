@@ -1,0 +1,18 @@
+{% extends 'default.html' %}
+{% load custom_filters %}
+{% block title %}{{ title }}{% endblock title %}
+
+{% block content %}
+{% if comments %}
+<h1>Комментарии</h1>
+{% for comment in comments %}
+Комментарий от пользователя {{ comment.user }} к посту
+<a href="{% url 'showpost' comment.post.pk %}">{{ comment.post }}</a><br>
+<a href="{% url 'showcomment' comment.pk %}">{{ comment.content|censor }}</a><br>
+рейтинг {{ comment.rating }}<br>
+<hr>
+{% endfor %}
+{% else %}
+<h1>Комментариев нет</h1>
+{% endif %}
+{% endblock content %}

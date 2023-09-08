@@ -1,0 +1,43 @@
+{% extends 'default.html' %}
+{% load custom_filters %}
+{% block title %}Статьи{% endblock title %}
+
+{% block content %}
+
+
+   <form action="" method="get">
+       {{ filterset.form.as_p }}
+       <input type="submit" value="Найти" />
+   </form>
+
+   <hr>
+
+{% if articles %}
+{% include 'includes/paginations.html' %}
+
+<h1>Статьи</h1>
+<hr>
+{% for a in articles %}
+
+<h6>
+{% for cat in a.category.all %}
+{{ cat }}    {% if not forloop.last %}, {% endif %}
+{% endfor %}
+</h6>
+
+<h4>{{ a.time_created|date:'Y-m-d' }} | Рейтинг: {{ a.rating }}
+    | Автор: {{ a.author }} | Комментариев: {{ a.comment_set.count }} </h4>
+
+<h2>{{ a.title|censor }}</h2>
+<p>{{ a.content|truncatechars:200|censor}}</p>
+   <p class="link-read-post"><a href="{{ a.get_absolute_url }}">Читать пост</a>
+<hr>
+{% endfor %}
+
+{% include 'includes/paginations.html' %}
+{% else %}
+<h1>Статей нет</h1>
+
+{% endif %}
+
+<br><br>{% endblock content %}

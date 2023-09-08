@@ -1,0 +1,37 @@
+{% extends 'default.html' %}
+{% load custom_filters %}
+{% block title %}Новости{% endblock title %}
+
+{% block content %}
+
+
+
+{% if news %}
+{% include 'includes/paginations.html' %}
+
+<h1>Новости</h1>  
+<hr>
+{% for n in news %}
+
+<h6>
+{% for cat in n.category.all %}
+{{ cat }}    {% if not forloop.last %}, {% endif %}
+{% endfor %}
+</h6>
+
+<h4>{{ n.time_created|date:'Y-m-d' }} | Рейтинг: {{ n.rating }}
+    | Автор: {{ n.author }} | Комментариев: {{ n.comment_set.count }} </h4>
+
+<h2>{{ n.title|censor }}</h2>
+<p>{{ n.content|truncatechars:200|censor}}</p>
+   <p class="link-read-post"><a href="{{ n.get_absolute_url }}">Читать пост</a>
+<hr>
+{% endfor %}
+
+{% include 'includes/paginations.html' %}
+{% else %}
+<h1>Новостей нет</h1>
+
+{% endif %}
+
+<br><br>{% endblock content %}
