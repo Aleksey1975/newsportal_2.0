@@ -1,6 +1,43 @@
 {% extends 'default.html' %}
+{% load custom_filters %}
+{% block title %}Все посты{% endblock title %}
 
 {% block content %}
+<h1 align="center">{{ title }}</h1>
 
-<h1>Главная страница</h1>
-{% endblock content %}
+   <form action="" method="get">
+       {{ filterset.form.as_p }}
+       <input type="submit" value="Найти" />
+   </form>
+
+
+
+{% if posts %}
+{% include 'includes/paginations.html' %}
+
+
+<hr>
+{% for n in posts %}
+<h2>{{ n.get_type_post_display }}</h2>
+<h6>
+{% for cat in n.category.all %}
+{{ cat }}    {% if not forloop.last %}, {% endif %}
+{% endfor %}
+</h6>
+
+<h4>{{ n.time_created|date:'Y-m-d' }} | Рейтинг: {{ n.rating }}
+    | Автор: {{ n.author }} | Комментариев: {{ n.comment_set.count }} </h4>
+
+<h2>{{ n.title|censor }}</h2>
+<p>{{ n.content|truncatechars:200|censor}}</p>
+   <p class="link-read-post"><a href="{{ n.get_absolute_url }}">Читать пост</a>
+<hr>
+{% endfor %}
+
+{% include 'includes/paginations.html' %}
+{% else %}
+<h1>Постов нет</h1>
+
+{% endif %}
+
+<br><br>{% endblock content %}

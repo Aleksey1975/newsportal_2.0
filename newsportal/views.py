@@ -10,16 +10,12 @@ from django.views.generic import (
 )
 
 
-def index(request):
-    return render(request, 'index.html')
-
-
-class ListNews(ListView):
-    queryset = Post.objects.filter(type_post=news)
+class ListPost(ListView):
+    model = Post
     ordering = '-time_created'
-    template_name = 'index_news.html'
-    context_object_name = 'news'
-    paginate_by = 2
+    template_name = 'index.html'
+    context_object_name = 'posts'
+    paginate_by = 5
 
     def get_queryset(self):
         queryset = super().get_queryset()
@@ -29,6 +25,28 @@ class ListNews(ListView):
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         context['filterset'] = self.filterset
+        context['title'] = 'Все посты'
+
+        return context
+
+
+
+class ListNews(ListView):
+    queryset = Post.objects.filter(type_post=news)
+    ordering = '-time_created'
+    template_name = 'index_news.html'
+    context_object_name = 'news'
+    paginate_by = 5
+
+    def get_queryset(self):
+        queryset = super().get_queryset()
+        self.filterset = PostFilter(self.request.GET, queryset)
+        return self.filterset.qs
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['filterset'] = self.filterset
+        context['title'] = 'Новости'
 
         return context
 
@@ -38,7 +56,7 @@ class ListNewsOnly(ListView):
     ordering = '-time_created'
     template_name = 'news.html'
     context_object_name = 'news'
-    paginate_by = 2
+    paginate_by = 5
 
 
 class ListArticles(ListView):
@@ -56,6 +74,8 @@ class ListArticles(ListView):
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         context['filterset'] = self.filterset
+        context['title'] = 'Статьи'
+
         return context
 
 
@@ -152,6 +172,7 @@ class ArticleEdit( UpdateView):
         context['post'] = 'Отредактировать статью'
         context['button'] = 'Отредактировать'
         return context
+
 
 
 class NewsDelete(DeleteView):

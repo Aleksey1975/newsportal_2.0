@@ -11,6 +11,9 @@
 
 <p>Рейтинг {{ article.rating }}</p>
 
+<p><a href="{% url 'article_edit' article.pk %}">Изменить</a>
+    <a href="{% url 'article_delete' article.pk %}">Удалить</a></p></p>
+
 {% if  article.comment_set.all %}
 <br>
 Комментарии: {% for comment in article.comment_set.all %}

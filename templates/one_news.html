@@ -16,6 +16,9 @@
 <h1>{{ news.title|censor }}</h1>
 <p>{{ news.content|censor }}</p>
 
+<p><a href="{% url 'news_edit' news.pk %}">Изменить</a>
+
+    <a href="{% url 'news_delete' news.pk %}">Удалить</a></p>
 
 
 <h5>Рейтинг: {{ news.rating }}</h5>

@@ -6,7 +6,7 @@
 	<title>{{title}}</title>
 	<link type="text/css" href="{% static 'styles.css' %}" rel="stylesheet" />
 	<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-	<link rel="shortcut icon" href="" type="image/x-icon"/>
+		<link rel="shortcut icon" href="{% static 'images/icon.png' %}" type="image/x-icon"/>
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 </head>
 <body>
@@ -15,11 +15,11 @@
 {% block mainmenu %}
 		<div class="header">
 			<ul id="mainmenu" class="mainmenu">
-			<li class="logo"><a href="">Главная саница<div class="logo"></div></a></li>
+			<li class="logo"><a href="{% url 'index' %}">Главная саница<div class="logo"></div></a></li>
 
 
-			<li><a href="">Создать новость</a></li>
-        <li><a href="">Создать статью</a></li>
+			<li><a href="{% url 'news_create' %}">Создать новость</a></li>
+        <li><a href="{% url 'article_create' %}">Создать статью</a></li>
 
 			<li class="last"><a href="">Войти</a></li>
         <li class="last"><a href="">Выйти</a></li>
@@ -37,17 +37,14 @@
   
 	<ul id="leftchapters">
    
-    <li class="selected"><a href="">Все посты (только просмотр)</a></li>
+
    
-    <li><a href="">Новости</a></li>
+    <li><a href="{% url 'news' %}">Новости</a></li>
   
     
-    <li><a href="">Статьи</a></li>
+    <li><a href="{% url 'articles' %}">Статьи</a></li>
   
-		<li class="share">
-		<p>Наш канал</p>
-		<a class="share-yt" href="https://www.youtube.com/channel/UClJzWfGWuGJL2t-3dYKcHTA/playlists" target="_blank" rel="nofollow"></a>
-		</li>
+
 	</ul>
 </td>
 <!-- Конец Sidebar'а -->

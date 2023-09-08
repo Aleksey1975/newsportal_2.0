@@ -3,7 +3,7 @@
 {% block title %}Статьи{% endblock title %}
 
 {% block content %}
-
+<h1 align="center">{{ title }}</h1>
 
    <form action="" method="get">
        {{ filterset.form.as_p }}
@@ -15,7 +15,6 @@
 {% if articles %}
 {% include 'includes/paginations.html' %}
 
-<h1>Статьи</h1>
 <hr>
 {% for a in articles %}
 
@@ -30,7 +29,7 @@
 
 <h2>{{ a.title|censor }}</h2>
 <p>{{ a.content|truncatechars:200|censor}}</p>
-   <p class="link-read-post"><a href="{{ a.get_absolute_url }}">Читать пост</a>
+   <p class="link-read-post"><a href="{% url 'one_article' a.pk %}">Читать пост</a>
 <hr>
 {% endfor %}
 
