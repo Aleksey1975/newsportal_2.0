@@ -134,12 +134,36 @@ class NewsEdit( UpdateView):
     model = Post
     template_name = 'post_edit.html'
 
-
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         context['title'] = 'Отредактировать новость'
         context['button'] = 'Отредактировать'
         return context
+
+
+
+class ArticleEdit( UpdateView):
+    form_class = PostForm
+    model = Post
+    template_name = 'post_edit.html'
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['post'] = 'Отредактировать статью'
+        context['button'] = 'Отредактировать'
+        return context
+
+
+class NewsDelete(DeleteView):
+    model = Post
+    template_name = 'news_delete.html'
+    success_url = reverse_lazy('news')
+
+
+class ArticleDelete(DeleteView):
+    model = Post
+    template_name = 'article_delete.html'
+    success_url = reverse_lazy('articles')
 
 
 
