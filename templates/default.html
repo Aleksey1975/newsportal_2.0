@@ -17,13 +17,24 @@
 			<ul id="mainmenu" class="mainmenu">
 			<li class="logo"><a href="{% url 'index' %}">Главная саница<div class="logo"></div></a></li>
 
-
+         {% if perms.newsportal.add_post  %}
+ 
 			<li><a href="{% url 'news_create' %}">Создать новость</a></li>
         <li><a href="{% url 'article_create' %}">Создать статью</a></li>
+   {% endif %}
 
-			<li class="last"><a href="">Войти</a></li>
-        <li class="last"><a href="">Выйти</a></li>
+        
+{% if not request.user.is_authenticated %}
+        	
+			<li class="last"><a href="/accounts/login/">Войти</a></li>
+        <li class="last"><a href="/accounts/signup/">Зарегистроваться</a></li>
+        <li class="last"> Вы не авторизованы</li>
 
+         {% else %}
+	<li class="last">{{ user.username }}</li>
+        
+        <li class="last"><a href="/accounts/logout/">Выйти</a></li>
+        {% endif %}
 			</ul>
 			<div class="clear"></div>
 		</div>
@@ -71,3 +82,4 @@
 <!-- Конец footer'а и страницы -->
 </body>
 </html>
+
