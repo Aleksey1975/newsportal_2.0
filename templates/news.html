@@ -24,7 +24,7 @@
 
 <h2>{{ n.title|censor }}</h2>
 <p>{{ n.content|truncatechars:200|censor}}</p>
-   <p class="link-read-post"><a href="{% url 'news' n.pk %}">Читать пост</a>
+   <p class="link-read-post"><a href="{% url 'one_news' n.pk %}">Читать пост</a>
 <hr>
 {% endfor %}
 
