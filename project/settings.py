@@ -139,7 +139,7 @@ ACCOUNT_EMAIL_VERIFICATION = 'none'
 # https://docs.djangoproject.com/en/4.1/howto/static-files/
 
 STATIC_URL = 'static/'
-LOGIN_REDIRECT_URL = "/"
+LOGIN_REDIRECT_URL = "/news/search/"
 STATICFILES_DIRS = [
     BASE_DIR / "static"
 ]
