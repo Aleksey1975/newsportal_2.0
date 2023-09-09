@@ -11,8 +11,15 @@
 
 <p>Рейтинг {{ article.rating }}</p>
 
+       {% if perms.newsportal.add_post  %}
+
+
 <p><a href="{% url 'article_edit' article.pk %}">Изменить</a>
+   {% endif %}
+
+   {% if perms.newsportal.delete_post  %}
     <a href="{% url 'article_delete' article.pk %}">Удалить</a></p></p>
+{% endif %}
 
 {% if  article.comment_set.all %}
 <br>
@@ -26,3 +33,4 @@
 <a href="{% url 'like-news' article.pk %}">like</a>
 <a href="{% url 'dislike-news' article.pk %}">dislike</a>
 {% endblock content %}
+
