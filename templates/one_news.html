@@ -16,10 +16,15 @@
 <h1>{{ news.title|censor }}</h1>
 <p>{{ news.content|censor }}</p>
 
+    {% if perms.newsportal.add_post  %}
+
 <p><a href="{% url 'news_edit' news.pk %}">Изменить</a>
 
-    <a href="{% url 'news_delete' news.pk %}">Удалить</a></p>
+  {% endif %}
 
+   {% if perms.newsportal.delete_post  %}
+    <a href="{% url 'news_delete' news.pk %}">Удалить</a></p>
+{% endif %}
 
 <h5>Рейтинг: {{ news.rating }}</h5>
 
